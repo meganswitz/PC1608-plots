@@ -1,0 +1,42 @@
+%% README 
+%%
+%% Last update: 2019-05-09
+%%
+%% This package contains the data from PC1608 and MatLab scripts to make 
+%% figures. Scripts are designed to be used in MatLab and variables may 
+%% be adjusted to plot specific casts and regions. 
+%%
+%% IMPORTANT: This package requires the GSW Oceanographic Toolbox.
+%% The software is available from http://www.TEOS-10.org
+%% Function used in this package are:
+%% gsw_SA_from_SP
+%% gsw_CT_from_t
+%% gsw_rho
+%%
+%% Figure scripts also use colortoolbox.m and SA_CT_plot.m, in helperfiles
+%% 
+%% To use, add this package and GSW Oceanographic Toolbox to path and run 
+%% any figure script in MatLab. 
+%%
+%% The keys in the data folder contain metadata for all data variables. 
+%%
+%% /data 
+%% PC1608_data.mat
+%% - PC1608.ctd \ contains all ctd data
+%% - PC1608.bottle \ contains all bottle sample data, including nutrients
+%% - PC1608.bsi \ contains all biogenic silica data as well as bottle data
+%%
+%% PC608_ctd_key.m \ generates set of variables from ctd data
+%% PC1608_bottle_key.m \ generates set of variables from bottle data
+%% PC1608_bsi_key.m \ generates a set of variable from biogenic silica data
+%%
+%% /figurescripts
+%% Contains matlab scripts to generate all figures in paper.
+%%
+%% /helperfiles
+%% - colortoolbox.m \ contains a list of RGB color values for plotting
+%%                  \ default colors for this paper are stored here
+%%                  \ for transparant lines, define lalpha before running
+%%                    this script
+%% - SA_CT_plot.m \ function that creates a temperature-salinity plot with 
+%%                  lines of constant density. called by figurescripts. 
