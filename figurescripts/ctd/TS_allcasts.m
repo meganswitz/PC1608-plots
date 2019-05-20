@@ -81,20 +81,20 @@ for k=region
 	if ismember(k,GBcasts)==1      
 		if ismember(k,37)==1 % Remove compromised data from plot by only plotting below 66 meters.
 			rows2=find(depth_c(rows)>=66); 
-			plot(SA_c(rows(rows2)),CT_c(rows(rows2)),'LineStyle','-','Color',GB_l_color,'Linewidth',lwc);
+			GBplot=plot(SA_c(rows(rows2)),CT_c(rows(rows2)),'LineStyle','-','Color',GB_l_color,'Linewidth',lwc);
 		else
-			plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',GB_l_color,'Linewidth',lwc);
+			GBplot=plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',GB_l_color,'Linewidth',lwc);
 		end
             
 	elseif ismember(k,JBcasts)==1
-		plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',JB_l_color,'Linewidth',lwc);
+		JBplot=plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',JB_l_color,'Linewidth',lwc);
 	elseif ismember(k,WBcasts)==1
-		plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',WB_l_color,'Linewidth',lwc);
+		WBplot=plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',WB_l_color,'Linewidth',lwc);
 	elseif ismember(k,allothercasts)==1 
 		if ismember(k,11)==1
 			% Incomplete data for station 11, reason unknown. Do not include in plot. 
 		else
-			plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',allother_l_color,'Linewidth',lwc);
+			allotherplot=plot(SA_c(rows),CT_c(rows),'LineStyle','-','Color',allother_l_color,'Linewidth',lwc);
 		end
 	end
 end
@@ -105,25 +105,34 @@ label_JB='Jordan Basin region';
 label_WB='Wilkinson Basin region';
 label_allelse='All other stations';
 
-% fake points for legend
-GBl=plot([100:200],[100:200],'Linestyle','-','Color',GB_m_color,'MarkerFaceColor',GB_m_color,'Linewidth',5);
-JBl=plot([100:200],[100:200],'Linestyle','-','Color',JB_m_color,'MarkerFaceColor',JB_m_color,'Linewidth',5);
-WBl=plot([100:200],[100:200],'Linestyle','-','Color',WB_m_color,'MarkerFaceColor',WB_m_color,'Linewidth',5);
-allelsel=plot([100:200],[100:200],'Linestyle','-','Color',allother_m_color,'MarkerFaceColor',allother_m_color,'Linewidth',5);
+% create legend
+[legh,objh,plots,text]=legend([GBplot, JBplot, WBplot, allotherplot],label_GB, label_JB, label_WB, label_allother);
+% legend('boxoff')
 
-% legend from fake points
-l=legend([GBl, JBl, WBl, allelsel],label_GB, label_JB, label_WB, label_allelse);
-set(l,'FontSize',14);
-set(l,'Location','northeast');
+% adjust legend symbol appearance
+lineh = findobj(objh,'type','line');
+set(lineh,'Linewidth',5);
+
+% adjust legend text fontsize
+texth = findobj(objh,'type','text');
+set(texth,'Fontsize',14);
+
+% set x position, y position, width, and height of legend box 
+% disable warning message
+wtmp = warning('off', 'MATLAB:handle_graphics:exceptions:SceneNode');
+legh.Position(1)=.48;
+legh.Position(2)=.70;
+legh.Position(3)=.4;
+legh.Position(4)=.16;
 
 
 % % Uncomment this section if you want to save images locally.
 % % set saveoption=0 for no save, 1 for scratchdir, 2 for finaldir
-% saveoption=[0]
-% try dpi=150 for fast write, dpi=500 for publish quality
-% dpi=[0]
+% saveoption=[0];
+% % try dpi=150 for fast write, dpi=500 for publish quality
+% dpi=[150];
 % %where to saveimages for saveoption==1
-% scratchdir=['/path/'];
+% scratchdir=['path/'];
 % %where to saveimages for saveoption==2
 % finaldir=['/path/'];
 % %savename

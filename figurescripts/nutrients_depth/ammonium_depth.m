@@ -90,13 +90,13 @@ for k=region
    rows=find(station_b==k); 
    % %plot colored edge markers
     if ismember(k,GBcasts)==1
-        scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',GB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
+        GBscatter=scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',GB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
     elseif ismember(k,JBcasts)==1
-        scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',JB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
+        JBscatter=scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',JB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
     elseif ismember(k,WBcasts)==1
-        scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',WB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
+        WBscatter=scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',WB_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
     elseif ismember(k,allothercasts)==1
-        scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',allother_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
+        allotherscatter=scatter(attribute(rows),p_b(rows),ms,'MarkerEdgeColor',black,'MarkerFaceColor',allother_m_color,'MarkerFaceAlpha',alpha,'MarkerEdgeAlpha',alpha);
     end
 end
 
@@ -121,17 +121,31 @@ label_JB='Jordan Basin region';
 label_WB='Wilkinson Basin region';
 label_allother='All other stations';
 
-% fake points for legend
-GBl=plot([100:200],[100:200],'Linestyle','-','Color',GB_m_color,'MarkerFaceColor',GB_m_color,'Linewidth',5);
-JBl=plot([100:200],[100:200],'Linestyle','-','Color',JB_m_color,'MarkerFaceColor',JB_m_color,'Linewidth',5);
-WBl=plot([100:200],[100:200],'Linestyle','-','Color',WB_m_color,'MarkerFaceColor',WB_m_color,'Linewidth',5);
-allotherl=plot([100:200],[100:200],'Linestyle','-','Color',allother_m_color,'MarkerFaceColor',allother_m_color,'Linewidth',5);
+% labels for legend
+label_GB='Georges Basin region';
+label_JB='Jordan Basin region';
+label_WB='Wilkinson Basin region';
+label_allother='All other stations';
 
-% legend from fake points
-l=legend([GBl, JBl, WBl, allotherl],label_GB, label_JB, label_WB, label_allother);
-set(l,'FontSize',14);
-set(l,'Location','southeast');
+% create legend
+[legh,objh,plots,text]=legend([GBscatter, JBscatter, WBscatter, allotherscatter],label_GB, label_JB, label_WB, label_allother);
 legend('boxoff')
+
+% adjust legend symbol appearance
+lineh = findobj(objh,'type','Patch');
+set(lineh,'MarkerSize',12);
+
+% set x position, y position, width, and height of legend box 
+% disable warning message
+wtmp = warning('off', 'MATLAB:handle_graphics:exceptions:SceneNode');
+legh.Position(1)=.55;
+legh.Position(2)=.12;
+legh.Position(3)=.26;
+legh.Position(4)=.16;
+
+% adjust legend text fontsize
+texth = findobj(objh,'type','text');
+set(texth,'Fontsize',14);
 
 
 
@@ -139,7 +153,7 @@ legend('boxoff')
 % % set saveoption=0 for no save, 1 for scratchdir, 2 for finaldir
 % saveoption=[0]
 % try dpi=150 for fast write, dpi=500 for publish quality
-% dpi=[0]
+% dpi=[150]
 % %where to saveimages for saveoption==1
 % scratchdir=['/path/'];
 % %where to saveimages for saveoption==2

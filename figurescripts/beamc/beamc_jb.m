@@ -102,7 +102,7 @@ set(yAX,'FontSize', 24)
 % % set saveoption=0 for no save, 1 for scratchdir, 2 for finaldir
 % saveoption=[0]
 % try dpi=150 for fast write, dpi=500 for publish quality
-% dpi=[0]
+% dpi=[150]
 % %where to saveimages for saveoption==1
 % scratchdir=['/path/'];
 % %where to saveimages for saveoption==2
